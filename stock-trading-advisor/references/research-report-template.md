@@ -42,7 +42,7 @@ Indicator 1: <name>
 - Baseline: (normal regime or pre-shock reference with date/range)
 - Interpretation:
 - Why it matters now:
-- Source: [n]
+- Include inline citation marker(s) like `[n]` in Interpretation/Why it matters now when factual.
 
 Indicator 2: <name>
 - Current:
@@ -50,7 +50,9 @@ Indicator 2: <name>
 - Baseline:
 - Interpretation:
 - Why it matters now:
-- Source: [n]
+- Include inline citation marker(s) like `[n]` in Interpretation/Why it matters now when factual.
+
+Do not use standalone `Source:` lines inside indicator cards.
 
 ## 5. Detailed Analysis
 

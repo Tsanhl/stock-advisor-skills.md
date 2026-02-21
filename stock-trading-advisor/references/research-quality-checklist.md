@@ -48,7 +48,8 @@ Use this checklist before sending the final answer.
 - Indicator section uses numbered cards (`Indicator 1`, `Indicator 2`, ...), not repeated anonymous `Indicator:` labels.
 - Each indicator includes `Current`, `Prior`, and `Baseline` with exact dates and units when available.
 - Each indicator includes one explicit interpretation sentence and one "why it matters now" sentence.
-- Each indicator has at least one direct source citation.
+- Each indicator has at least one direct source citation using inline `[n]`.
+- Indicator cards do not use standalone `Source:` lines; citation mapping is handled by inline `[n]` + final `References`.
 
 ## G. Transparency
 

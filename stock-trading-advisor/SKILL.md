@@ -20,6 +20,7 @@ For mode `1` (`News report`):
 - Cover the latest material developments across macro, rates, USD, major equity indices, forex, crypto, commodities (gold/silver/oil), and geopolitics.
 - Explain market mechanism and likely directional impact for key assets.
 - Include exact dates/timestamps for time-sensitive developments and cite sources.
+- In each news card use `Reference: [n] <URL>` and keep a numbered `References` section so users can match every citation.
 - Include a simple `Coverage Check` block with one line per category:
   - `- macro data releases: <material items N or no material update in window>`
   - `- central-bank communication: <material items N or no material update in window>`
@@ -42,6 +43,7 @@ For mode `2` (`Stock recommendations`):
 
 For both modes:
 - Use the most recent verifiable data available at response time.
+- For all live prices/levels, include exact as-of timestamp + timezone near report cutoff and use inline `[n]` citations.
 - Separate facts vs inference and include source citations for consequential claims.
 - Final deliverable must be a polished PDF saved to Desktop.
 
@@ -202,7 +204,7 @@ Indicator presentation rule (strict):
   - `Baseline: <normal regime or pre-shock reference> (<date/range>)`
   - `Interpretation: <one clear sentence>`
   - `Why it matters now: <decision linkage + horizon>`
-  - `Source: [n] <direct URL>`
+- Do not add standalone `Source:` lines inside indicator cards; use inline `[n]` citations and the final `References` section.
 - Include at least 3 indicator cards unless the topic is structurally narrow.
 - If an indicator is qualitative, include an observable proxy and an explicit limitation note.
 
