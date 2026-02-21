@@ -417,6 +417,11 @@ def main() -> int:
     parser.add_argument("--input", required=True, help="Path to input markdown/text file.")
     parser.add_argument("--output", required=True, help="Path to output PDF file.")
     parser.add_argument("--title", default="", help="Optional title shown at top of PDF.")
+    parser.add_argument(
+        "--cleanup-input",
+        action="store_true",
+        help="Delete input markdown file after successful PDF write.",
+    )
     args = parser.parse_args()
 
     input_path = Path(args.input)
@@ -432,6 +437,12 @@ def main() -> int:
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_bytes(pdf_data)
+
+    if args.cleanup_input:
+        try:
+            input_path.unlink()
+        except FileNotFoundError:
+            pass
 
     print(f"Wrote PDF: {output_path}")
     return 0

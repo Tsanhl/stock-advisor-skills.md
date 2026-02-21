@@ -172,28 +172,24 @@ Always deliver a PDF file as the final artifact.
 
 Preferred flow:
 1. Draft report content in Markdown using `references/research-report-template.md`.
-2. Save deliverables to the user's Desktop by default:
-   - Markdown: `/Users/hltsang/Desktop/<report-name>.md`
-   - PDF: `/Users/hltsang/Desktop/<report-name>.pdf`
-3. Convert to PDF with:
-   - `python3 scripts/build_pdf.py --input /Users/hltsang/Desktop/<report-name>.md --output /Users/hltsang/Desktop/<report-name>.pdf --title "<title>"`
-4. Optionally keep a project copy under `research/reports/` for traceability.
+2. Write working markdown to `/tmp/<report-name>.md` (internal only, not for user delivery).
+3. Convert to PDF with cleanup:
+   - `python3 scripts/build_pdf.py --input /tmp/<report-name>.md --output /Users/hltsang/Desktop/<report-name>.pdf --title "<title>" --cleanup-input`
+4. Do not save working markdown to Desktop.
 5. Verify the PDF exists and is readable before final response.
-6. In final response, provide:
+6. In final response, provide only:
    - Desktop PDF path
    - 3-5 headline insights
    - Main caveats
+7. Do not include markdown paths in user-visible output.
 
 Mode `1` naming rule (strict):
-- Markdown: `/Users/hltsang/Desktop/News_Report_<YYYYMMDD_HHMM>_<TZ>.md`
 - PDF: `/Users/hltsang/Desktop/News_Report_<YYYYMMDD_HHMM>_<TZ>.pdf`
 
 Mode `2` naming rule (strict):
-- Markdown: `/Users/hltsang/Desktop/Stock_Recommendations_<YYYYMMDD_HHMM>_<TZ>.md`
 - PDF: `/Users/hltsang/Desktop/Stock_Recommendations_<YYYYMMDD_HHMM>_<TZ>.pdf`
 
 Mode `3` naming rule (strict):
-- Markdown: `/Users/hltsang/Desktop/Research_<topic-slug>_<YYYYMMDD_HHMM>_<TZ>.md`
 - PDF: `/Users/hltsang/Desktop/Research_<topic-slug>_<YYYYMMDD_HHMM>_<TZ>.pdf`
 
 Indicator presentation rule (strict):
