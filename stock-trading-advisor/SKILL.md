@@ -20,11 +20,25 @@ For mode `1` (`News report`):
 - Cover the latest material developments across macro, rates, USD, major equity indices, forex, crypto, commodities (gold/silver/oil), and geopolitics.
 - Explain market mechanism and likely directional impact for key assets.
 - Include exact dates/timestamps for time-sensitive developments and cite sources.
+- Include a simple `Coverage Check` block with one line per category:
+  - `- macro data releases: <material items N or no material update in window>`
+  - `- central-bank communication: <material items N or no material update in window>`
+  - `- fiscal/treasury/policy actions: <material items N or no material update in window>`
+  - `- geopolitics/sanctions/security: <material items N or no material update in window>`
+  - `- politician/public-official statements: <material items N or no material update in window>`
+  - `- rates/FX/commodities: <material items N or no material update in window>`
+  - `- equity/credit/volatility tape: <material items N or no material update in window>`
+- In `Sector Reason` and `Stock Reason`, require explicit transmission wording (`because`/`via`/`through`/`->`) and at least one concrete metric with number + date/period.
 
 For mode `2` (`Stock recommendations`):
 - Generate long and short opportunities with thesis, catalysts, invalidation triggers, and risk controls.
 - Include options ideas where suitable (structure, expiry window, strike logic, and risk notes).
 - Cross-check setups against macro regime and cross-asset signals before finalizing.
+- Include a mandatory `Commodity Analysis` section with:
+  - `Oil Analysis:`
+  - `Gold Analysis:`
+  - `Silver Analysis:`
+- For each commodity subsection include current level, prior comparator, baseline comparator, driver, transmission, net impact, invalidation trigger, and explicit mapping to affected long/short opportunities.
 
 For both modes:
 - Use the most recent verifiable data available at response time.
@@ -143,6 +157,8 @@ Writing standard:
 - Coverage completeness rule:
   - explicitly list which critical dimensions were scanned (policy, macro, market, sector, legal/regulatory, or topic-relevant equivalents)
   - if a critical dimension has no update, state `No material update in window`
+- Mechanism clarity rule:
+  - reject vague wording like `supportive`/`headwind` unless transmission is explicitly explained (what changed -> why it changes earnings/cost/valuation -> horizon).
 - If a major claim depends on a single source, mark confidence lower and disclose single-source limitation.
 
 ## Quality Gates (Must Pass)
