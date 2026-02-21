@@ -40,22 +40,16 @@ ASCII_REPLACEMENTS = str.maketrans(
     }
 )
 
-COVERAGE_MATRIX_PURPOSE_RE = re.compile(r"^[-*]\s*Purpose:\s*(.+)$", flags=re.IGNORECASE)
-COVERAGE_MATRIX_ROW_SIMPLE_RE = re.compile(
-    r"^[-*]\s*([^|]+?)\s*\|\s*Scan:\s*(.+?)\s*\|\s*Covered:\s*(.+?)\s*$",
-    flags=re.IGNORECASE,
-)
-COVERAGE_MATRIX_ROW_LEGACY_RE = re.compile(
-    r"^[-*]\s*([^|]+?)\s*\|\s*Scan:\s*(.+?)\s*\|\s*Result:\s*(.+?)\s*\|\s*Why it matters:\s*(.+?)\s*$",
-    flags=re.IGNORECASE,
-)
-
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Render a markdown/text market report to PDF.")
     parser.add_argument("--input", required=True, help="Input markdown or text file")
     parser.add_argument("--output", required=True, help="Output PDF path")
     parser.add_argument("--title", default="Trading Advisory Report", help="PDF header title")
+    parser.add_argument(
+        "--cleanup-input",
+        action="store_true",
+        help="Delete input markdown file after successful PDF write.",
+    )
     return parser.parse_args()
 
 
@@ -63,64 +57,6 @@ def normalize(text: str) -> str:
     text = text.translate(ASCII_REPLACEMENTS)
     text = text.replace("\t", "    ").strip()
     return text.encode("latin-1", "replace").decode("latin-1")
-
-
-def expand_coverage_matrix_for_display(lines: List[str]) -> List[str]:
-    """Expand one-line Coverage Matrix rows into readable multi-line blocks for PDF output.
-
-    Input markdown remains validator-friendly with strict one-line coverage rows.
-    This function only affects PDF presentation.
-    """
-
-    expanded: List[str] = []
-    in_matrix = False
-
-    for line in lines:
-        stripped = line.strip()
-
-        if stripped.casefold() == "coverage matrix:":
-            in_matrix = True
-            expanded.append(line)
-            continue
-
-        if in_matrix:
-            # Coverage Matrix ends at the next non-bullet label heading (e.g. "Delta Update:").
-            if stripped.endswith(":") and not stripped.startswith(("-", "*")):
-                in_matrix = False
-                expanded.append(line)
-                continue
-
-            if not stripped:
-                if not expanded or expanded[-1] != "":
-                    expanded.append("")
-                continue
-
-            purpose_match = COVERAGE_MATRIX_PURPOSE_RE.match(stripped)
-            if purpose_match:
-                # Skip purpose in rendered PDF to keep matrix concise.
-                continue
-
-            row_match = COVERAGE_MATRIX_ROW_SIMPLE_RE.match(stripped)
-            if row_match:
-                category, scan, covered = [part.strip() for part in row_match.groups()]
-                expanded.append(f"- {category}")
-                expanded.append(f"Scan: {scan}")
-                expanded.append(f"Covered: {covered}")
-                expanded.append("")
-                continue
-
-            legacy_match = COVERAGE_MATRIX_ROW_LEGACY_RE.match(stripped)
-            if legacy_match:
-                category, scan, result, _why = [part.strip() for part in legacy_match.groups()]
-                expanded.append(f"- {category}")
-                expanded.append(f"Scan: {scan}")
-                expanded.append(f"Covered: {result}")
-                expanded.append("")
-                continue
-
-        expanded.append(line)
-
-    return expanded
 
 
 def classify_line(raw: str) -> Tuple[str, float, str]:
@@ -483,7 +419,6 @@ def main() -> None:
                 content_lines = raw_lines[idx + 1 :]
         break
 
-    content_lines = expand_coverage_matrix_for_display(content_lines)
     classified = [classify_line(line) for line in content_lines]
     classified = expand_inline_labels(classified)
     pages = build_pages(classified, title=args.title)
@@ -491,6 +426,13 @@ def main() -> None:
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_bytes(pdf_bytes)
+
+    if args.cleanup_input:
+        try:
+            input_path.unlink()
+        except FileNotFoundError:
+            pass
+
     print(f"PDF written: {output_path}")
 
 

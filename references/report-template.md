@@ -28,6 +28,20 @@ Show latest values (with date/time) for:
 
 Add net implication for the target assets.
 
+Indicator card format (mandatory, no standalone `Source:` line):
+- `Indicator 1:`
+- `<indicator name>`
+- `Current:`
+- `<latest value> (<as-of date/time + timezone, frequency>)`
+- `Prior:`
+- `<prior comparable value> (<date/time>)`
+- `Baseline:`
+- `<baseline reference> (<date/range>)`
+- `Interpretation:`
+- `<one precise sentence>`
+- `Why it matters now:`
+- `<one precise sentence with inline [n] citation if factual>`
+
 ## 4) Opportunities (required for recommendation mode)
 Do not use markdown tables.
 Use numbered opportunity cards.
@@ -51,7 +65,7 @@ Commodity direction requirement (report-level, mandatory):
   - Gold direction + relevant proxies/stocks
   - Silver direction + relevant proxies/stocks
   - for each commodity, include:
-    - current value + timestamp + source
+    - current value + as-of timestamp + inline citation `[n]`
     - prior comparator and baseline comparator (with dates)
     - what changed and why
     - transmission to selected opportunities
@@ -169,16 +183,16 @@ Required fields per opportunity:
   - official channels scanned (official sites, transcripts, verified official social accounts)
   - statement-driven items included
   - unverified items excluded
-- Coverage Matrix:
+- Coverage Check:
   - Format rule (mandatory for each row):
-    - `- <category> | Scan: <source groups scanned> | Covered: <material items N or no material update in window>`
-  - macro data releases | Scan: <...> | Covered: <...>
-  - central-bank communication | Scan: <...> | Covered: <...>
-  - fiscal/treasury/policy actions | Scan: <...> | Covered: <...>
-  - geopolitics/sanctions/security | Scan: <...> | Covered: <...>
-  - politician/public-official statements | Scan: <...> | Covered: <...>
-  - rates/FX/commodities | Scan: <...> | Covered: <...>
-  - equity/credit/volatility tape | Scan: <...> | Covered: <...>
+    - `- <category>: <material items N or no material update in window>`
+  - macro data releases: <...>
+  - central-bank communication: <...>
+  - fiscal/treasury/policy actions: <...>
+  - geopolitics/sanctions/security: <...>
+  - politician/public-official statements: <...>
+  - rates/FX/commodities: <...>
+  - equity/credit/volatility tape: <...>
 - Delta Update:
   - final rescan timestamp
   - what changed since initial scan (or `no new material items`)
@@ -190,7 +204,7 @@ Repeat one card per relevant item:
 News 1: <headline> (<time + timezone>)
 Fact Brief: <who did what, where, when, and key number(s)>
 Comparator: <current vs prior/baseline with dates>
-Reference: <direct source URL>
+Reference: [n] <direct source URL>
 Public-Signal Verification (if applicable):
 - <speaker/role/channel/timestamp/verification status>
 Impact on Market: Positive | Negative | Neutral
@@ -207,14 +221,14 @@ Sector Reason:
 - Sector exposure channel: <input-cost/demand/duration/FX/credit/regulation>
 - Sector mechanism: <how this factor moves sector performance>
 - Sector timing: <intraday / 1-4 weeks / multi-quarter>
-- Sector metric: <one concrete metric/threshold>
+- Sector metric: <one concrete metric/threshold with number and date>
 Stocks: <symbols or />
 Impact: Positive | Negative | Neutral
 Stock Reason:
 - Stock exposure channel: <company-specific channel>
 - Stock mechanism: <how this changes earnings/cost/valuation for these names>
 - Stock timing: <intraday / 1-4 weeks / multi-quarter>
-- Stock metric: <one concrete metric/threshold>
+- Stock metric: <one concrete metric/threshold with number and date>
 Counter-risk / Invalidation:
 - <what would reverse this card's directional read>
 Recommendations: <actionable implication>
@@ -238,8 +252,13 @@ Recommendations: <actionable implication>
 - Key levels/events to track next.
 - What changes the view.
 
-## 10) Sources
-List one plain URL per line.
+## 10) References
+Use numbered entries so users can match citations:
+- [1] <title or short label>, <direct URL>
+- [2] <title or short label>, <direct URL>
+- [3] <title or short label>, <direct URL>
+
+Do not output bare URLs without `[n]` numbering.
 
 ## 11) Risk Note
 State analysis is probabilistic and not guaranteed.

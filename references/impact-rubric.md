@@ -20,6 +20,7 @@ Use this rubric for professional, specific, and data-backed analysis.
 - Include all market-relevant items in window.
 - Deduplicate only duplicate reporting of the same event.
 - Provide one direct source URL in every news card.
+- Use `Reference: [n] <URL>` in each news card and map all `[n]` in a numbered `References` section.
 - Add coverage summary with counts and coverage gaps.
 - Include material politician/public-official statements when they are market-moving.
 - Run a dedicated sweep for:
@@ -31,7 +32,7 @@ Use this rubric for professional, specific, and data-backed analysis.
   - initial scan and synthesis
   - final delta rescan near output time
   - update report if new material appears
-- Maintain a coverage matrix with required categories using strict fields per row: `Scan` and `Covered`; use `Covered: material items N` or `Covered: no material update in window`.
+- Maintain a simple coverage check with required categories using this row format: `- <category>: <material items N or no material update in window>`.
 
 ## Source Priority Standard
 - Use this priority for factual claims:
@@ -60,17 +61,25 @@ Each news/recommendation item must state:
 - Geopolitics is optional and should be included only when material.
 - Recommendation-set must include a separate commodity block (oil/gold/silver) and map it to Long/Short selections.
 - For news cards, prefer one merged `Macro + Transmission Context` block to avoid duplicated or fragmented explanations.
+- For Cross-Asset Dashboard indicator cards:
+  - do not use standalone `Source:` lines
+  - use inline `[n]` citations in `Interpretation`/`Why it matters now`
+  - include exact as-of timestamps for all live prices/levels
 
 ## News Card Clarity Standard
 - Each card must include `Fact Brief` and `Comparator` fields before interpretation.
 - `Fact Brief` must answer who/what/when/where plus key number(s).
 - `Comparator` must show current vs prior/baseline with exact dates.
+- `Comparator` should include inline citation markers when factual (`[n]`).
 - `Reason` must include: `Primary channel`, `Mechanism`, and `Why now`.
 - `Sector Reason` must include: `Sector exposure channel`, `Sector mechanism`, `Sector timing`, and `Sector metric`.
 - `Stock Reason` must include: `Stock exposure channel`, `Stock mechanism`, `Stock timing`, and `Stock metric`.
+- `Sector mechanism` and `Stock mechanism` must explicitly state transmission (for example `because`, `via`, `through`, or `->`) and cannot stop at vague words like `supportive` without explaining `how`.
+- `Sector metric` and `Stock metric` must include at least one concrete number and date/period reference.
 - If using breadth language, define breadth with metric and universe (for example `% of S&P 500 above 50DMA`).
 - Do not use unexplained shorthand like "risk-off", "supportive", or "cooling breadth" without data definition.
 - If a card is statement-driven, include `Public-Signal Verification` with speaker, role, channel, timestamp, and verification status.
+- All reports must end with numbered `References` entries (`[1] ...`, `[2] ...`) to allow direct citation matching.
 - Each card must pass six logic checks:
   - What happened?
   - Compared with what?
@@ -173,8 +182,9 @@ Reject or rewrite any section that fails one or more checks:
 - Includes non-relevant macro channels that do not affect the specific opportunity.
 - Uses breadth language without naming the breadth metric/universe and comparator.
 - Uses politician/public-official statement as market driver without authenticity verification and timestamp.
-- Claims complete market coverage without reporting a coverage matrix and final delta rescan.
+- Claims complete market coverage without reporting a coverage check and final delta rescan.
 - Fails structure validation for required sections/labels in the active report mode.
+- Uses standalone `Source:` lines in indicator cards instead of inline `[n]` + numbered `References`.
 - Uses vague risk statements without trigger level or mechanism.
 - Provides options suggestion without expiry/strike rationale and max-loss definition.
 - Uses placeholder language (for example \"use latest filing\") instead of concrete data.

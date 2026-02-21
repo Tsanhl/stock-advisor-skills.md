@@ -16,7 +16,7 @@ Deliver objective, professional financial analysis with real, current data and p
 
 ## Core Requirements (non-negotiable)
 - Use latest available data for every claim.
-- Provide direct source links for every key claim and each news card.
+- Use inline numeric citations (`[n]`) for every key claim and each news card.
 - Use explicit data comparisons (current vs prior period and, when relevant, vs pre-COVID baseline).
 - Distinguish fact from inference.
 - Never rely on vague wording without data support.
@@ -30,7 +30,11 @@ Deliver objective, professional financial analysis with real, current data and p
   - unit
   - date/time
   - comparator (prior/baseline where relevant)
-  - source URL
+  - inline citation marker (`[n]`)
+- For every live market price/level (rates, FX, commodities, equities):
+  - use the most recent verifiable print available at report cutoff
+  - include exact as-of timestamp and timezone
+  - map each inline `[n]` to a numbered `References` entry
 - For market-moving claims, confirm with at least one primary source (official release or issuer filing/press release) and one market-source context when available.
 - If sources conflict:
   - state conflict explicitly
@@ -52,7 +56,7 @@ Deliver objective, professional financial analysis with real, current data and p
 - If pass 2 finds new material:
   - update affected news cards/recommendations
   - add a `Delta Update` note describing what changed
-- Add a `Coverage Matrix` in news mode with these categories:
+- Add a `Coverage Check` block in news mode with these categories:
   - macro data releases
   - central-bank communication
   - fiscal/treasury/policy actions
@@ -60,9 +64,9 @@ Deliver objective, professional financial analysis with real, current data and p
   - politician/public-official statements
   - rates/FX/commodities
   - equity/credit/volatility tape
-- Keep Coverage Matrix simple and audit-friendly.
-- For each coverage-matrix category, use this strict one-line format:
-  - `- <category> | Scan: <source groups scanned> | Covered: <material items N or no material update in window>`
+- Keep the block simple and user-facing.
+- For each category, use this strict one-line format:
+  - `- <category>: <material items N or no material update in window>`
 - High-impact rule:
   - for items likely to move major index/sector materially intraday, require two independent sources when possible
   - if only one source is available, downgrade confidence and flag single-source risk
@@ -142,10 +146,14 @@ For each opportunity include all of the following:
 - `Valuation Transmission` (mandatory):
   - why valuation should re-rate/de-rate now
   - include at least one concrete sensitivity/threshold when available
-- `Commodity Direction Add-on` (mandatory at recommendation-set level):
-  - directional view for `Oil`, `Gold`, `Silver`
-  - for each commodity, include:
-    - `Current` (exact level/price, timestamp, source)
+- `Commodity Analysis` (mandatory at recommendation-set level):
+  - this section must appear in every stock-recommendation report
+  - required subsection labels:
+    - `Oil Analysis:`
+    - `Gold Analysis:`
+    - `Silver Analysis:`
+  - for each commodity subsection, include:
+    - `Current` (exact level/price, as-of timestamp, inline citation `[n]`)
     - `Prior comparator` (previous session/day/week level + change in % or bps)
     - `Baseline comparator` (for example 1M/3M average or pre-event level)
     - `Driver` (what changed and why, source-backed)
@@ -214,7 +222,15 @@ Coverage and accuracy rule:
 - Run sector and asset scan second.
 - Include all relevant items in window; deduplicate only repeated coverage of the same event.
 - Add a `Coverage Summary` with source groups, item count, dedupe count, and any coverage gaps.
-- Add one accurate `Reference:` link in each news card.
+- Add a `Coverage Check` block using one clean line per category:
+  - `- macro data releases: <material items N or no material update in window>`
+  - `- central-bank communication: <material items N or no material update in window>`
+  - `- fiscal/treasury/policy actions: <material items N or no material update in window>`
+  - `- geopolitics/sanctions/security: <material items N or no material update in window>`
+  - `- politician/public-official statements: <material items N or no material update in window>`
+  - `- rates/FX/commodities: <material items N or no material update in window>`
+  - `- equity/credit/volatility tape: <material items N or no material update in window>`
+- Add one accurate `Reference:` line in each news card using `Reference: [n] <direct source URL>`.
 - Normalize times to a single timezone in the report.
 - Include a `Policy and Public-Statement Sweep`:
   - heads of government/state, central-bank officials, treasury/finance ministers, and other market-moving policymakers
@@ -232,7 +248,7 @@ Per news card required structure:
 News 1: <headline> (<time>)
 Fact Brief: <who did what, where, and when; include key number(s)>
 Comparator: <current vs prior/baseline with date>
-Reference: <direct source URL>
+Reference: [n] <direct source URL>
 Public-Signal Verification (if applicable):
 - <speaker/role/channel/time/verification status>
 Impact on Market: Positive | Negative | Neutral
@@ -249,14 +265,14 @@ Sector Reason:
 - Sector exposure channel: <input-cost/demand/duration/FX/credit/regulation>
 - Sector mechanism: <how this factor moves sector performance>
 - Sector timing: <intraday / 1-4 weeks / multi-quarter>
-- Sector metric: <one concrete metric/threshold>
+- Sector metric: <one concrete metric/threshold with number and date/period>
 Stocks: <symbols or />
 Impact: Positive | Negative | Neutral
 Stock Reason:
 - Stock exposure channel: <company-specific channel>
 - Stock mechanism: <how this changes earnings/cost/valuation for these names>
 - Stock timing: <intraday / 1-4 weeks / multi-quarter>
-- Stock metric: <one concrete metric/threshold>
+- Stock metric: <one concrete metric/threshold with number and date/period>
 Counter-risk / Invalidation:
 - <what would reverse or weaken this call>
 Recommendations: <actionable implication>
@@ -300,7 +316,7 @@ Minimum content:
       - `Baseline`
       - `Interpretation`
       - `Why it matters now`
-      - `Source`
+      - no standalone `Source:` line (use inline `[n]` citations)
   - Do not use Markdown pipe-table syntax (`|...|`) in report markdown unless you are certain the renderer outputs a real table.
 - `Macro analysis`: transmission channels and direction.
 - `Fundamental/market analysis`: earnings, margins, credit, labor, demand, valuation, or other relevant pillars.
@@ -325,13 +341,19 @@ For recommendations, oil/gold/silver directional analysis is mandatory at recomm
 - Every key statement supported by data and source.
 - Professional detail level suitable for institutional-style memo quality.
 - Generate PDF to Desktop for every output.
+- Keep working markdown internal in `/tmp` only.
+- Do not output markdown file paths to users.
+- Use a numbered `References` section in every report:
+  - format: `[1] <title or short label>, <URL>`
+  - do not output bare-URL-only source lists
+- In Cross-Asset Dashboard / indicator cards, do not add standalone `Source:` lines.
 
 ## Workflow
 1. Classify request by function.
 2. Gather latest data/news and verify sources.
 3. Build analysis with explicit data comparisons.
-4. Write report using templates/references.
-5. Generate PDF on Desktop.
+4. Write report using templates/references in `/tmp/*.md`.
+5. Generate PDF on Desktop and remove the temporary markdown input.
 
 ## PDF Output Command
 ```bash
@@ -346,7 +368,8 @@ python3 "$SKILL_ROOT/scripts/validate_report_structure.py" \
 
 python3 "$SKILL_ROOT/scripts/write_market_report_pdf.py" \
   --input /tmp/market_news_report.md \
-  --output "$HOME/Desktop/Market_News_Report_${TS}_${TZ_TAG}.pdf"
+  --output "$HOME/Desktop/Market_News_Report_${TS}_${TZ_TAG}.pdf" \
+  --cleanup-input
 
 # Mode 2: Stock recommendations
 python3 "$SKILL_ROOT/scripts/validate_report_structure.py" \
@@ -355,7 +378,8 @@ python3 "$SKILL_ROOT/scripts/validate_report_structure.py" \
 
 python3 "$SKILL_ROOT/scripts/write_market_report_pdf.py" \
   --input /tmp/stock_recommendations.md \
-  --output "$HOME/Desktop/Stock_Recommendations_${TS}_${TZ_TAG}.pdf"
+  --output "$HOME/Desktop/Stock_Recommendations_${TS}_${TZ_TAG}.pdf" \
+  --cleanup-input
 ```
 
 PDF naming rule (strict):
@@ -364,6 +388,7 @@ PDF naming rule (strict):
 
 ## Quality Gate Before Final Answer
 - Latest data/news verified in this turn.
+- Latest market prices/levels are as-of timestamped near cutoff and cross-checked against primary market sources.
 - Data comparisons included (current vs prior/baseline where relevant).
 - No vague unsupported statements.
 - Macro channel logic is explicit and complete (no missing causal steps).
@@ -379,10 +404,11 @@ PDF naming rule (strict):
 - If options are not suggested, omission reason is stated.
 - No placeholder language or missing source URLs in `Data Evidence`.
 - Horizon label is consistent with setup, targets, and catalyst timeline.
-- Recommendation-set includes `Commodity Direction Add-on` for oil/gold/silver with explicit mapping to Long/Short list.
-- Per-news card reference present and accurate.
+- Recommendation-set includes `Commodity Analysis` with `Oil Analysis`, `Gold Analysis`, and `Silver Analysis` plus explicit mapping to Long/Short list.
+- Per-news card reference present, accurate, and formatted as `Reference: [n] <URL>`.
+- Numbered `References` section present with sequential `[n]` mapping used in inline citations.
 - Coverage summary present.
-- Coverage matrix present with required categories.
+- Coverage check present with required categories.
 - News depth gate:
   - each news card includes fact/comparator/mechanism/implication/invalidation chain,
   - include at least 6 materially distinct items unless fewer are truly available (if fewer, state why).
