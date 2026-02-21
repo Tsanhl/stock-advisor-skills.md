@@ -1,0 +1,4 @@
+interface:
+  display_name: "Stock Trading Advisor"
+  short_description: "Use 1=news report, 2=stock recommendations, 3=research on topic."
+  default_prompt: "Use $stock-trading-advisor with mode 1 (news report), mode 2 (stock recommendations), or mode 3 (research on <topic>) and save Markdown plus PDF to /Users/hltsang/Desktop using the mode-specific filename pattern."
