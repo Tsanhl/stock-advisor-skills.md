@@ -1,0 +1,4 @@
+interface:
+  display_name: "Stock Trading Advisor"
+  short_description: "Use 1=news, 2=stocks; Desktop PDF output."
+  default_prompt: "Use $stock-trading-advisor with mode 1 (news report) or mode 2 (stock recommendations), then save the PDF to /Users/hltsang/Desktop with the required filename pattern."
